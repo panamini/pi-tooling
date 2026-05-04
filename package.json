@@ -4,7 +4,9 @@
   "description": "Centralized Pi skills and extensions package.",
   "private": true,
   "type": "module",
-  "keywords": ["pi-package"],
+  "keywords": [
+    "pi-package"
+  ],
   "license": "MIT",
   "files": [
     "extensions/",
@@ -12,14 +14,27 @@
     "README.md"
   ],
   "pi": {
-    "extensions": ["extensions"],
-    "skills": ["skills"],
-    "prompts": ["skills/visual-explainer/commands"]
+    "extensions": [
+      "extensions"
+    ],
+    "skills": [
+      "skills"
+    ],
+    "prompts": [
+      "skills/visual-explainer/commands"
+    ]
   },
   "peerDependencies": {
     "@mariozechner/pi-coding-agent": "*"
   },
   "devDependencies": {
     "@mariozechner/pi-coding-agent": "*"
+  },
+  "dependencies": {
+    "@mozilla/readability": "^0.6.0",
+    "diff": "^9.0.0",
+    "linkedom": "^0.18.12",
+    "turndown": "^7.2.4",
+    "unpdf": "^1.6.2"
   }
 }

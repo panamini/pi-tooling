@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pi Tooling Update Flow (Visual Diff Demo)</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+      :root {
+        --bg: #0f1115;
+        --card: #171a1f;
+        --card2: #1f242b;
+        --border: #2a323d;
+        --text: #e7edf4;
+        --muted: #95a1b0;
+        --accent: #7ec8ff;
+        --add: #2ea043;
+        --del: #f85149;
+        --chg: #cca700;
+      }
+      body {
+        margin: 0;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        background: radial-gradient(120% 120% at 0% 0%, #14181d 0%, var(--bg) 45%, #0b0d11 100%);
+        color: var(--text);
+        padding: 24px;
+      }
+      .container { max-width: 1080px; margin: 0 auto; }
+      h1 { margin: 0 0 6px; font-size: 1.85rem; }
+      .lead { color: var(--muted); margin-bottom: 18px; }
+      .pill {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: var(--card2);
+        font-size: 0.86rem;
+        margin-right: 8px;
+      }
+      .panel {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 16px;
+        margin: 14px 0;
+      }
+      .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .before, .after {
+        padding: 14px;
+        border-radius: 10px;
+        border: 1px dashed;
+      }
+      .before { border-color: color-mix(in srgb, var(--del) 45%, transparent); background: rgba(248,81,73,0.09); }
+      .after { border-color: color-mix(in srgb, var(--add) 45%, transparent); background: rgba(46,160,67,0.09); }
+      .tag { font-weight: 600; text-transform: uppercase; font-size: 0.78rem; letter-spacing: 0.04em; color: var(--muted); }
+      .metric {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .metric .cell {
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 12px;
+        background: var(--card2);
+      }
+      .metric .value { font-size: 1.4rem; font-weight: 700; color: var(--accent); }
+      .muted { color: var(--muted); }
+      .diff { width: 100%; border-collapse: collapse; margin-top: 8px; }
+      .diff th, .diff td { text-align: left; padding: 8px; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
+      .diff .a { color: var(--del); }
+      .diff .b { color: var(--add); }
+      .mermaid { background: #0f1117; border: 1px dashed #2d3541; border-radius: 10px; padding: 12px; }
+      ul { margin: 0 0 0 18px; }
+      li + li { margin-top: 8px; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <p class="pill">showcase</p>
+      <h1>PI Package Update Flow — Diff View</h1>
+      <p class="lead">
+        This file demonstrates the same idea you asked about: <strong>local snapshot install vs git-based package</strong>.
+        It is a manual HTML diff-style illustration (what /diff-review style pages from <code>visual-explainer</code> would present).
+      </p>
+
+      <div class="panel">
+        <h2>Executive Summary</h2>
+        <p class="muted">
+          Right now your hub is currently local-only install: <code>pi install /Users/pana/pi-tooling</code>.
+          That gives immediate access, but changes in upstream repos are not pulled automatically.
+          To get creator updates automatically, the package source itself must be git-backed and installed as git.
+        </p>
+      </div>
+
+      <div class="panel metric">
+        <div class="cell">
+          <div class="tag">Current State</div>
+          <div class="value">Local snapshot</div>
+          <div>Stable local copy in <code>/Users/pana/pi-tooling</code></div>
+        </div>
+        <div class="cell">
+          <div class="tag">Target State</div>
+          <div class="value">Git-backed package</div>
+          <div>Auto-update when running <code>pi update</code> (if installed from git + unpinned)</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Before vs After (Diff)</h2>
+        <div class="row">
+          <div class="before">
+            <div class="tag">Before</div>
+            <h3>Local path install</h3>
+            <ul>
+              <li>Installed via: <code>pi install /Users/pana/pi-tooling</code></li>
+              <li>Update behavior: <span class="a">manual sync only</span></li>
+              <li>Upstream changes in nicobailon/panamini sources are not auto-fetched</li>
+              <li>Good for isolated local snapshots</li>
+            </ul>
+          </div>
+          <div class="after">
+            <div class="tag">After</div>
+            <h3>Git-backed install</h3>
+            <ul>
+              <li>Installed via: <code>pi install git:github.com/panamini/pi-tooling</code> (example)</li>
+              <li>Update behavior: <span class="b">automatic pulls on <code>pi update</code></span></li>
+              <li>Changes from the repo are available across machines</li>
+              <li>Centralized source of truth + version history</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>File-level sync strategy</h2>
+        <table class="diff">
+          <thead>
+            <tr><th>Area</th><th>How to update</th><th>Visual status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>local snapshot</td><td>use <code>git pull</code> in <code>/Users/pana/pi-tooling</code> then <code>pi install /Users/pana/pi-tooling</code></td><td class="a">manual</td></tr>
+            <tr><td>git package</td><td>run <code>pi update</code> in repo-backed installation</td><td class="b">automatic</td></tr>
+            <tr><td>visual-explainer</td><td>already included in package once repo contains <code>skills/visual-explainer/commands</code></td><td class="b">stable</td></tr>
+            <tr><td>other external additions</td><td>commit into repo and push</td><td class="chg">review before merge</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel">
+        <h2>Flow Diagram (visual diff style)</h2>
+        <div class="mermaid">
+        flowchart LR
+          A[You run pi - Local install] -->|snapshot| B[No auto-updates from upstream]
+          B --> C[Need manual "git pull" + reinstall]
+          D[You run git-backed install] -->|remote origin| E[Pi update checks new tags/commits]
+          E --> F[`pi update` pulls latest]
+          F --> G[Centralized updates on this machine + others]
+        </div>
+      </div>
+    </div>
+
+    <script>
+      mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+  </body>
+</html>

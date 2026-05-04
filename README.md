@@ -44,6 +44,10 @@ pi install /Users/pana/pi-tooling
 
 ## Use
 
+- Preview diff-style demo of update strategy:
+  - `notes/visual-explainer-diff-update-flow.html`
+
+
 - Skills:
   - `/skill:project-checklist`
   - `/skill:debug-live-boundary`
