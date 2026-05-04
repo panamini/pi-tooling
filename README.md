@@ -163,6 +163,16 @@ This repo includes a Pi extension that shows a reminder when Pi starts (throttle
   - `cd /Users/pana/pi-tooling && ./scripts/sync-upstream.sh --commit --push`
   - `pi update git:github.com/panamini/pi-tooling`
 
+## Practice note: avoid divergence between local and Pi cache
+
+There are two local copies of this repo:
+- Your editable working copy: `/Users/pana/pi-tooling`
+- Pi cache used by runtime: `~/.pi/agent/git/github.com/panamini/pi-tooling`
+
+If you edit code/skills/extensions, update in `/Users/pana/pi-tooling`, commit + push, then sync cache:
+1. `cd /Users/pana/pi-tooling && git push origin main`
+2. `/Users/pana/.local/bin/sync-pi-tooling` (or run `git -C ~/.pi/agent/git/github.com/panamini/pi-tooling fetch origin && git -C ~/.pi/agent/git/github.com/panamini/pi-tooling reset --hard origin/main`)
+
 ## Notes
 
 This repo is now a single source of truth: local edits + GitHub sync + Pi git package install.
