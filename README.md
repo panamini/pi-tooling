@@ -117,3 +117,12 @@ This repo includes a Pi extension that shows a reminder when Pi starts (throttle
 ## Notes
 
 This repo is now a single source of truth: local edits + GitHub sync + Pi git package install.
+
+## Auto-routing behavior
+
+This repo also includes an auto-routing extension:
+- `extensions/auto-workflow-router.ts`
+
+It adds a lightweight, per-turn hint to the agent so you can use plain language and it maps tasks to the right skill/extension automatically.
+
+For Neyssan app work and other complex flows, it biases toward richer orchestration (scout → planner → worker → reviewer-style flow) when it detects multi-step or high-risk work.
