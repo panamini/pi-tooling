@@ -1,11 +1,11 @@
 # pi-central-hub
 
-Centralized local repo for my **pi** skills and extensions.
+Centralized repo for my **Pi** skills and extensions.
 
 It keeps:
 
-- `extensions/` → pi extensions
-- `skills/` → pi skills (`SKILL.md`)
+- `extensions/` → Pi extensions
+- `skills/` → Pi skills (`SKILL.md`)
 
 ## Contents
 
@@ -36,17 +36,18 @@ It keeps:
 - Extension:
   - `central-hub` (`/hub-note` command)
 
-## Install (global)
+## Install (recommended)
 
 ```bash
-pi install /Users/pana/pi-tooling
+pi install git:github.com/panamini/pi-tooling
 ```
+
+You can still keep a local checkout (`/Users/pana/pi-tooling`) for editing and commits.
 
 ## Use
 
-- Preview diff-style demo of update strategy:
+- Preview diff-style update demo:
   - `notes/visual-explainer-diff-update-flow.html`
-
 
 - Skills:
   - `/skill:project-checklist`
@@ -55,12 +56,13 @@ pi install /Users/pana/pi-tooling
   - `/skill:pdf-reader`
   - `/skill:stop-slop`
   - `/skill:visual-explainer`
+
 - Extensions:
   - Check command names in each extension’s source or README.
-  - Added direct extension files:
+  - Added direct extension file:
     - `extensions/ask-user-question.ts`
 
-For visual-explainer, prompt templates are also available under `/commands` names like:
+For visual-explainer, prompt templates are also available under `/commands`:
 - `/generate-web-diagram`
 - `/generate-visual-plan`
 - `/generate-slides`
@@ -70,6 +72,32 @@ For visual-explainer, prompt templates are also available under `/commands` name
 - `/fact-check`
 - `/share-page`
 
+## Update workflow (offline-safe + auto-update when online)
+
+### One command to pull latest from source repos and sync this package
+
+```bash
+cd /Users/pana/pi-tooling
+./scripts/sync-upstream.sh --commit --push
+```
+
+What it does:
+- Re-syncs selected skill/extension folders from their upstream repos:
+  - panamini/skill-lib
+  - amosblomqvist/pi-config
+  - nicobailon/visual-explainer
+- Commits + pushes the updates (`--commit`, `--push`)
+- Runs `pi update git:github.com/panamini/pi-tooling` so installed Pi package updates immediately
+
+### Day-to-day updates on any machine
+
+```bash
+pi update git:github.com/panamini/pi-tooling
+```
+
+If you are disconnected, your already-installed copy under `~/.pi/agent/git/...` keeps working.
+When you reconnect, rerun the update command.
+
 ## Notes
 
-This package is local and centralized so you can keep one repo for all your custom pi workflow tools.
+This repo is now a single source of truth: local edits + GitHub sync + Pi git package install.
