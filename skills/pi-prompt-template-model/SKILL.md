@@ -1,5 +1,5 @@
 ---
-name: prompt-template-model
+name: pi-prompt-template-model
 description: Run model/think-level-aware prompt templates through slash commands and maintain deterministic/handoff workflows.
 disable-model-invocation: true
 ---

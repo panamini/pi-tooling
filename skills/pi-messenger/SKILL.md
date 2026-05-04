@@ -1,6 +1,6 @@
 ---
 name: pi-messenger
-description: Lightweight multi-agent orchestration: task claims, crew planning, messaging, file reservations, and status for parallel execution.
+description: "Lightweight multi-agent orchestration: task claims, crew planning, messaging, file reservations, and status for parallel execution."
 disable-model-invocation: true
 ---
 

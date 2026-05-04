@@ -1,6 +1,6 @@
 ---
-name: web-access
-description: Research and web content retrieval on demand: /websearch, web_search(), code_search(), and fetch_content() for URLs, PDFs, GitHub repos, and videos.
+name: pi-web-access
+description: "Research and web content retrieval on demand: /websearch, web_search(), code_search(), and fetch_content() for URLs, PDFs, GitHub repos, and videos."
 disable-model-invocation: true
 ---
 
