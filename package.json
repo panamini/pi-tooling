@@ -13,7 +13,8 @@
   ],
   "pi": {
     "extensions": ["extensions"],
-    "skills": ["skills"]
+    "skills": ["skills"],
+    "prompts": ["skills/visual-explainer/commands"]
   },
   "peerDependencies": {
     "@mariozechner/pi-coding-agent": "*"

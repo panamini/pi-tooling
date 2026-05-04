@@ -22,6 +22,11 @@ It keeps:
   - `ask-user-question.ts`
   - `web-fetch`
 
+### Imported from `nicobailon/visual-explainer`
+
+- Skill:
+  - `visual-explainer` (plus prompt commands)
+
 ### Existing local resources
 
 - Skills:
@@ -45,10 +50,21 @@ pi install /Users/pana/pi-tooling
   - `/skill:design-md-library`
   - `/skill:pdf-reader`
   - `/skill:stop-slop`
+  - `/skill:visual-explainer`
 - Extensions:
   - Check command names in each extension’s source or README.
   - Added direct extension files:
     - `extensions/ask-user-question.ts`
+
+For visual-explainer, prompt templates are also available under `/commands` names like:
+- `/generate-web-diagram`
+- `/generate-visual-plan`
+- `/generate-slides`
+- `/diff-review`
+- `/plan-review`
+- `/project-recap`
+- `/fact-check`
+- `/share-page`
 
 ## Notes
 
