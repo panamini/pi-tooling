@@ -70,7 +70,7 @@ pi_messenger({ action: "work", autonomous: true })
 
 // Override concurrency or model for this wave
 pi_messenger({ action: "work", autonomous: true, concurrency: 4 })
-pi_messenger({ action: "work", model: "claude-sonnet-4-20250514" })
+pi_messenger({ action: "work", model: "gpt-5.5" })
 ```
 
 ### 4. Task Management
@@ -212,10 +212,10 @@ Each crew agent ships with a default model:
 
 | Agent | Role | Default Model |
 |-------|------|---------------|
-| `crew-planner` | planner | `anthropic/claude-opus-4-6` |
-| `crew-worker` | worker | `anthropic/claude-haiku-4-5` |
-| `crew-reviewer` | reviewer | `anthropic/claude-opus-4-6` |
-| `crew-plan-sync` | analyst | `anthropic/claude-haiku-4-5` |
+| `crew-planner` | planner | `gpt-5.5` |
+| `crew-worker` | worker | `gpt-5.5` |
+| `crew-reviewer` | reviewer | `gpt-5.5` |
+| `crew-plan-sync` | analyst | `gpt-5.5` |
 
 Override via `crew.models.<role>` in config. To customize an agent for a project, copy it from `~/.pi/agent/extensions/pi-messenger/crew/agents/` to `.pi/messenger/crew/agents/` and edit the frontmatter — project-level agents override extension defaults by name. Agents support `thinking: <level>` in frontmatter (off, minimal, low, medium, high, xhigh). Config `thinking.<role>` overrides the frontmatter value.
 
@@ -223,16 +223,16 @@ Override via `crew.models.<role>` in config. To customize an agent for a project
 
 User-level config goes in `~/.pi/agent/pi-messenger.json` under a `crew` key. Project-level config goes in `.pi/messenger/crew/config.json`. Project overrides user, both override defaults.
 
-Crew spawns multiple LLM sessions in parallel — start with a cheap worker model and scale up. Add this to `~/.pi/agent/pi-messenger.json`:
+Crew spawns multiple LLM sessions in parallel. Set role-level model defaults in `~/.pi/agent/pi-messenger.json` when you want to override the bundled defaults:
 
 ```json
-{ "crew": { "models": { "worker": "claude-haiku-4-5" } } }
+{ "crew": { "models": { "worker": "gpt-5.5" } } }
 ```
 
 Model strings accept `provider/model` format for explicit provider selection and `:level` suffix for inline thinking control:
 
 ```json
-{ "crew": { "models": { "worker": "anthropic/claude-haiku-4-5", "planner": "openrouter/anthropic/claude-sonnet-4:high" } } }
+{ "crew": { "models": { "worker": "gpt-5.5", "planner": "gpt-5.5:high" } } }
 ```
 
 The `:level` suffix and the `thinking.<role>` config are independent — if both are set, the suffix takes precedence.
@@ -242,7 +242,7 @@ Full example (`~/.pi/agent/pi-messenger.json`):
 {
   "crew": {
     "concurrency": { "workers": 3, "max": 6 },
-    "models": { "worker": "claude-haiku-4-5", "planner": "claude-sonnet-4-6" },
+    "models": { "worker": "gpt-5.5", "planner": "gpt-5.5" },
     "coordination": "chatty",
     "work": { "maxAttemptsPerTask": 5 }
   }
@@ -272,10 +272,10 @@ Project-level (`.pi/messenger/crew/config.json`):
 | `dependencies` | Dependency scheduling mode: `advisory` or `strict` | `"advisory"` |
 | `coordination` | Worker communication level: `none`, `minimal`, `moderate`, `chatty` | `chatty` |
 | `messageBudgets` | Max outgoing messages per worker per level (sends rejected after limit) | `{ none: 0, minimal: 2, moderate: 5, chatty: 10 }` |
-| `models.worker` | Default model for workers | `anthropic/claude-haiku-4-5` |
-| `models.planner` | Default model for planner | `anthropic/claude-opus-4-6` |
-| `models.reviewer` | Default model for reviewer | `anthropic/claude-opus-4-6` |
-| `models.analyst` | Default model for analyst (plan-sync) | `anthropic/claude-haiku-4-5` |
+| `models.worker` | Default model for workers | `gpt-5.5` |
+| `models.planner` | Default model for planner | `gpt-5.5` |
+| `models.reviewer` | Default model for reviewer | `gpt-5.5` |
+| `models.analyst` | Default model for analyst (plan-sync) | `gpt-5.5` |
 | `thinking.planner` | Thinking level for planner agent | (from frontmatter) |
 | `thinking.worker` | Thinking level for worker agents | (from frontmatter) |
 | `thinking.reviewer` | Thinking level for reviewer agents | (from frontmatter) |

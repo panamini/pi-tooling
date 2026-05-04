@@ -129,7 +129,7 @@ function loadAgents(): AgentConfig[] {
 			name: frontmatter.name,
 			description: frontmatter.description || "",
 			tools,
-			model: frontmatter.model || "anthropic/claude-sonnet-4-6",
+			model: frontmatter.model || "gpt-5.5",
 			systemPrompt: body,
 			filePath,
 		});

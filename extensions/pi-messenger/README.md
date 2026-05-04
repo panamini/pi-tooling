@@ -156,21 +156,21 @@ Any skills you already have in `~/.pi/agent/skills/` are automatically available
 
 ### Crew Configuration
 
-Crew spawns multiple LLM sessions in parallel — it can burn tokens fast. Start with a cheap worker model and scale up once you've seen the workflow. Add this to `~/.pi/agent/pi-messenger.json`:
+Crew spawns multiple LLM sessions in parallel — it can burn tokens fast. Set role-level model defaults in `~/.pi/agent/pi-messenger.json` when you want to override the bundled defaults:
 
 ```json
-{ "crew": { "models": { "worker": "claude-haiku-4-5" } } }
+{ "crew": { "models": { "worker": "gpt-5.5" } } }
 ```
 
-The planner and reviewer keep their frontmatter defaults; only workers (the bulk of the spend) get the cheap model. Override per-role as needed:
+Override per-role as needed:
 
 ```json
 {
   "crew": {
     "models": {
-      "worker": "claude-haiku-4-5",
-      "planner": "claude-sonnet-4-6",
-      "reviewer": "claude-sonnet-4-6"
+      "worker": "gpt-5.5",
+      "planner": "gpt-5.5",
+      "reviewer": "gpt-5.5"
     }
   }
 }
@@ -182,8 +182,8 @@ Model strings accept `provider/model` format for explicit provider selection and
 {
   "crew": {
     "models": {
-      "worker": "anthropic/claude-haiku-4-5",
-      "planner": "openrouter/anthropic/claude-sonnet-4:high"
+      "worker": "gpt-5.5",
+      "planner": "gpt-5.5:high"
     }
   }
 }
@@ -198,7 +198,7 @@ Full config reference (all fields optional — only set what you want to change)
   "crew": {
     "concurrency": { "workers": 2, "max": 10 },
     "coordination": "chatty",
-    "models": { "worker": "claude-haiku-4-5" },
+    "models": { "worker": "gpt-5.5" },
     "review": { "enabled": true, "maxIterations": 3 },
     "planning": { "maxPasses": 1 },
     "work": {
@@ -216,10 +216,10 @@ Full config reference (all fields optional — only set what you want to change)
 | `dependencies` | Dependency scheduling mode: `advisory` or `strict` | `"advisory"` |
 | `coordination` | Worker coordination level: `none`, `minimal`, `moderate`, `chatty` | `"chatty"` |
 | `messageBudgets` | Max outgoing messages per worker per level (sends rejected after limit) | `{ none: 0, minimal: 2, moderate: 5, chatty: 10 }` |
-| `models.planner` | Model for planner agent | `anthropic/claude-opus-4-6` |
-| `models.worker` | Model for workers (overridden by per-task or per-wave `model` param) | `anthropic/claude-haiku-4-5` |
-| `models.reviewer` | Model for reviewer agent | `anthropic/claude-opus-4-6` |
-| `models.analyst` | Model for analyst (plan-sync) agent | `anthropic/claude-haiku-4-5` |
+| `models.planner` | Model for planner agent | `gpt-5.5` |
+| `models.worker` | Model for workers (overridden by per-task or per-wave `model` param) | `gpt-5.5` |
+| `models.reviewer` | Model for reviewer agent | `gpt-5.5` |
+| `models.analyst` | Model for analyst (plan-sync) agent | `gpt-5.5` |
 | `thinking.planner` | Thinking level for planner agent | (from frontmatter) |
 | `thinking.worker` | Thinking level for worker agents | (from frontmatter) |
 | `thinking.reviewer` | Thinking level for reviewer agents | (from frontmatter) |
@@ -238,10 +238,10 @@ Each crew agent ships with a default model in its frontmatter. Override any of t
 
 | Agent | Role | Default Model |
 |-------|------|---------------|
-| `crew-planner` | planner | `anthropic/claude-opus-4-6` |
-| `crew-worker` | worker | `anthropic/claude-haiku-4-5` |
-| `crew-reviewer` | reviewer | `anthropic/claude-opus-4-6` |
-| `crew-plan-sync` | analyst | `anthropic/claude-haiku-4-5` |
+| `crew-planner` | planner | `gpt-5.5` |
+| `crew-worker` | worker | `gpt-5.5` |
+| `crew-reviewer` | reviewer | `gpt-5.5` |
+| `crew-plan-sync` | analyst | `gpt-5.5` |
 
 Agent definitions live in `crew/agents/` within the extension. To customize one for a project, copy it to `.pi/messenger/crew/agents/` and edit the frontmatter — project-level agents override extension defaults by name. Agents support `thinking: <level>` in frontmatter (off, minimal, low, medium, high, xhigh). Config `thinking.<role>` overrides the frontmatter value.
 
