@@ -72,6 +72,14 @@ For visual-explainer, prompt templates are also available under `/commands`:
 - `/fact-check`
 - `/share-page`
 
+Use:
+
+```bash
+/sync-pi-tooling
+```
+
+to show the current refresh commands in Pi.
+
 ## Update workflow (offline-safe + auto-update when online)
 
 ### One command to pull latest from source repos and sync this package
@@ -97,6 +105,14 @@ pi update git:github.com/panamini/pi-tooling
 
 If you are disconnected, your already-installed copy under `~/.pi/agent/git/...` keeps working.
 When you reconnect, rerun the update command.
+
+## Reminder behavior
+
+This repo includes a Pi extension that shows a reminder when Pi starts (throttled to once every 12h):
+- Command reminder: `/sync-pi-tooling`
+- Default reminder text:
+  - `cd /Users/pana/pi-tooling && ./scripts/sync-upstream.sh --commit --push`
+  - `pi update git:github.com/panamini/pi-tooling`
 
 ## Notes
 
