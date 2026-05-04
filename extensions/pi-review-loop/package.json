@@ -1,0 +1,38 @@
+{
+  "name": "pi-review-loop",
+  "version": "0.4.4",
+  "description": "Automated code review loop extension for pi coding agent",
+  "files": [
+    "index.ts",
+    "settings.ts",
+    "review-loop.png",
+    "prompts/"
+  ],
+  "keywords": [
+    "pi-package",
+    "pi",
+    "pi-coding-agent",
+    "extension",
+    "code-review",
+    "automation",
+    "ralph-wiggum-loop"
+  ],
+  "author": "Nico Bailon",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicobailon/pi-review-loop.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nicobailon/pi-review-loop/issues"
+  },
+  "homepage": "https://github.com/nicobailon/pi-review-loop#readme",
+  "pi": {
+    "extensions": [
+      "./index.ts"
+    ],
+    "prompts": [
+      "./prompts"
+    ]
+  }
+}

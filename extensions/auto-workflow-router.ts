@@ -106,8 +106,8 @@ function detectExplicitIntent(prompt: string, cwd: string): Intent | null {
 			suggestion: "Use visual-explainer `/plan-review` for plan-vs-codebase analysis.",
 		},
 		{
-			terms: ["search web", "web research", "find on web", "online", "reference"],
-			suggestion: "Use web-search/web-fetch for external lookup.",
+			terms: ["search web", "web research", "find on web", "online", "reference", "youtube", "video"],
+			suggestion: "Use web-access (`/websearch`, `web_search`, `fetch_content`) for web lookup and content extraction.",
 		},
 		{
 			terms: ["delegate", "ask opinion", "second opinion", "parallel review", "who should", "multi-step"],

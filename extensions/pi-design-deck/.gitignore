@@ -1,0 +1,4 @@
+node_modules/
+.pi/
+scripts/
+.DS_Store

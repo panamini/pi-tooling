@@ -21,7 +21,10 @@
       "skills"
     ],
     "prompts": [
-      "skills/visual-explainer/commands"
+      "skills/visual-explainer/commands",
+      "extensions/pi-design-deck/prompts",
+      "extensions/pi-prompt-template-model/prompts",
+      "extensions/pi-review-loop/prompts"
     ]
   },
   "peerDependencies": {
@@ -31,9 +34,16 @@
     "@mariozechner/pi-coding-agent": "*"
   },
   "dependencies": {
+    "@mariozechner/pi-agent-core": "^0.72.1",
+    "@mariozechner/pi-ai": "^0.72.1",
+    "@modelcontextprotocol/ext-apps": "^1.7.1",
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "@mozilla/readability": "^0.6.0",
+    "@sinclair/typebox": "^0.34.49",
     "diff": "^9.0.0",
     "linkedom": "^0.18.12",
+    "open": "^11.0.0",
+    "p-limit": "^7.3.0",
     "turndown": "^7.2.4",
     "unpdf": "^1.6.2"
   }

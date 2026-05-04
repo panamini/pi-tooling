@@ -30,8 +30,17 @@ This script:
      - video-extract
      - subagents
      - ask-user-question.ts
-     - web-fetch
      - visual-explainer
+     - pi-web-access
+     - pi-design-deck
+     - pi-prompt-template-model
+     - pi-annotate
+     - pi-intercom
+     - pi-review-loop
+     - pi-skill-palette
+     - pi-side-chat
+     - pi-mcp-adapter
+     - pi-messenger
   3) Optionally commits + pushes
   4) Refreshes installed package in Pi: `pi update git:github.com/panamini/pi-tooling`
 EOF
@@ -79,7 +88,17 @@ SOURCES["https://github.com/amosblomqvist/pi-config.git,extensions/filechanges,e
 SOURCES["https://github.com/amosblomqvist/pi-config.git,extensions/video-extract,extensions/video-extract"]=""
 SOURCES["https://github.com/amosblomqvist/pi-config.git,extensions/subagents,extensions/subagents"]=""
 SOURCES["https://github.com/amosblomqvist/pi-config.git,extensions/ask-user-question.ts,extensions/ask-user-question.ts"]=""
-SOURCES["https://github.com/amosblomqvist/pi-config.git,extensions/web-fetch,extensions/web-fetch"]=""
+
+SOURCES["https://github.com/nicobailon/pi-web-access.git,.,extensions/pi-web-access"]=""
+SOURCES["https://github.com/nicobailon/pi-design-deck.git,.,extensions/pi-design-deck"]=""
+SOURCES["https://github.com/nicobailon/pi-prompt-template-model.git,.,extensions/pi-prompt-template-model"]=""
+SOURCES["https://github.com/nicobailon/pi-annotate.git,.,extensions/pi-annotate"]=""
+SOURCES["https://github.com/nicobailon/pi-intercom.git,.,extensions/pi-intercom"]=""
+SOURCES["https://github.com/nicobailon/pi-review-loop.git,.,extensions/pi-review-loop"]=""
+SOURCES["https://github.com/nicobailon/pi-skill-palette.git,.,extensions/pi-skill-palette"]=""
+SOURCES["https://github.com/nicobailon/pi-side-chat.git,.,extensions/pi-side-chat"]=""
+SOURCES["https://github.com/nicobailon/pi-mcp-adapter.git,.,extensions/pi-mcp-adapter"]=""
+SOURCES["https://github.com/nicobailon/pi-messenger.git,.,extensions/pi-messenger"]=""
 
 SOURCES["https://github.com/nicobailon/visual-explainer.git,plugins/visual-explainer,skills/visual-explainer"]=""
 
