@@ -46,9 +46,15 @@ It keeps:
   - `security-review` (security checklist)
   - `memory-init`, `memory-write`, `memory-search`, `memory-import`, `memory-sync` (`pi-memory-md`)
   - `ingest-wiki` (twoweeks knowledge-plane ingest / direct updates / lint contract)
+  - `self-generating-skills` (`/skill-draft` workflow)
+  - `skill-curator` (`/skill-curator` report workflow)
+  - `auto-nudge` (`/nudge` workflow hints)
+  - `personality-skins` (`/skin` behavior profiles)
+  - `progressive-disclosure` (UX guidance for layered workflows)
 - Extensions:
   - `central-hub` (`/hub-note` command)
   - `auto-workflow-router` (plain-language routing + skill hinting)
+  - `pi-self-improvement` (`/skill-draft`, `/skill-curator`, `/skin`, `/nudge`)
   - `pi-tooling-reminder`
 
 ## Install (recommended)
@@ -83,6 +89,11 @@ You can still keep a local checkout (`/Users/pana/pi-tooling`) for editing and c
   - `/skill:memory-import`
   - `/skill:memory-sync`
   - `/skill:ingest-wiki`
+  - `/skill:self-generating-skills`
+  - `/skill:skill-curator`
+  - `/skill:auto-nudge`
+  - `/skill:personality-skins`
+  - `/skill:progressive-disclosure`
   - `/skill:visual-explainer`
   - `/skill:web-access`
   - `/skill:pi-design-deck`
@@ -100,6 +111,12 @@ You can still keep a local checkout (`/Users/pana/pi-tooling`) for editing and c
   - Added direct extension files:
     - `extensions/ask-user-question.ts`
     - `extensions/central-hub.ts`
+    - `extensions/pi-self-improvement.ts` (new self-improvement capabilities)
+  - New local commands:
+    - `/skill-draft <name> [description]`
+    - `/skill-curator`
+    - `/nudge [on|off|status]`
+    - `/skin list|status|builder|reviewer|researcher|minimal|planner|off`
 
 For visual-explainer, prompt commands are available under `/commands`:
 - `/generate-web-diagram`
