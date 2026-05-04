@@ -1,6 +1,6 @@
 ---
 name: ingest-wiki
-description: Twoweeks wiki memory bridge workflow: choose ingest / lint / direct-update / save-output mode, read the neutral read-order, and mutate only through twoweeks rules.
+description: "Twoweeks wiki memory bridge workflow: choose ingest / lint / direct-update / save-output mode, read the neutral read-order, and mutate only through twoweeks rules."
 disable-model-invocation: true
 origin: twoweeks-wiki
 ---

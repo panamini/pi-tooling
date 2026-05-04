@@ -37,6 +37,8 @@ It keeps:
 
 ### Existing local resources
 
+Memory skills/tools are intentionally provided by `git:github.com/VandeeFeng/pi-memory-md` directly, not duplicated here.
+
 - Skills:
   - `project-checklist`
   - `debug-live-boundary` (from `panamini/skill-lib`)
@@ -44,7 +46,6 @@ It keeps:
   - `blueprint` (planning)
   - `repo-scan` (codebase audit)
   - `security-review` (security checklist)
-  - `memory-init`, `memory-write`, `memory-search`, `memory-import`, `memory-sync` (`pi-memory-md`)
   - `ingest-wiki` (twoweeks knowledge-plane ingest / direct updates / lint contract)
   - `self-generating-skills` (`/skill-draft` workflow)
   - `skill-curator` (`/skill-curator` report workflow)
@@ -83,11 +84,6 @@ You can still keep a local checkout (`/Users/pana/pi-tooling`) for editing and c
   - `/skill:blueprint`
   - `/skill:repo-scan`
   - `/skill:security-review`
-  - `/skill:memory-init`
-  - `/skill:memory-write`
-  - `/skill:memory-search`
-  - `/skill:memory-import`
-  - `/skill:memory-sync`
   - `/skill:ingest-wiki`
   - `/skill:self-generating-skills`
   - `/skill:skill-curator`
