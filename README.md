@@ -45,6 +45,7 @@ It keeps:
   - `repo-scan` (codebase audit)
   - `security-review` (security checklist)
   - `memory-init`, `memory-write`, `memory-search`, `memory-import`, `memory-sync` (`pi-memory-md`)
+  - `ingest-wiki` (twoweeks knowledge-plane ingest / direct updates / lint contract)
 - Extensions:
   - `central-hub` (`/hub-note` command)
   - `auto-workflow-router` (plain-language routing + skill hinting)
@@ -81,6 +82,7 @@ You can still keep a local checkout (`/Users/pana/pi-tooling`) for editing and c
   - `/skill:memory-search`
   - `/skill:memory-import`
   - `/skill:memory-sync`
+  - `/skill:ingest-wiki`
   - `/skill:visual-explainer`
   - `/skill:web-access`
   - `/skill:pi-design-deck`
