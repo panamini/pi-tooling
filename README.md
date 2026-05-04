@@ -41,6 +41,10 @@ It keeps:
   - `project-checklist`
   - `debug-live-boundary` (from `panamini/skill-lib`)
   - `design-md-library` (from `panamini/skill-lib`)
+  - `blueprint` (planning)
+  - `repo-scan` (codebase audit)
+  - `security-review` (security checklist)
+  - `memory-init`, `memory-write`, `memory-search`, `memory-import`, `memory-sync` (`pi-memory-md`)
 - Extensions:
   - `central-hub` (`/hub-note` command)
   - `auto-workflow-router` (plain-language routing + skill hinting)
@@ -69,6 +73,14 @@ You can still keep a local checkout (`/Users/pana/pi-tooling`) for editing and c
   - `/skill:stop-slop`
   - `/skill:tdd-workflow`
   - `/skill:verification-loop`
+  - `/skill:blueprint`
+  - `/skill:repo-scan`
+  - `/skill:security-review`
+  - `/skill:memory-init`
+  - `/skill:memory-write`
+  - `/skill:memory-search`
+  - `/skill:memory-import`
+  - `/skill:memory-sync`
   - `/skill:visual-explainer`
   - `/skill:web-access`
   - `/skill:pi-design-deck`

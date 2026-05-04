@@ -102,8 +102,20 @@ function detectExplicitIntent(prompt: string, cwd: string): Intent | null {
 			suggestion: "Use visual-explainer `/diff-review` for structured architectural diff review.",
 		},
 		{
-			terms: ["plan", "spec", "roadmap", "proposal", "design", "migration"],
-			suggestion: "Use visual-explainer `/plan-review` for plan-vs-codebase analysis.",
+			terms: ["plan", "spec", "roadmap", "proposal", "migration", "multi-session", "multi session", "large project"],
+			suggestion: "Use `/skill:blueprint` for multi-PR planning workflows; use `/plan-review` for plan-vs-reality checks.",
+		},
+		{
+			terms: ["security", "auth", "authentication", "authorization", "secret", "credential", "injection", "vulnerability", "payment", "api endpoint", "input validation"],
+			suggestion: "Use `/skill:security-review` when adding security-sensitive logic.",
+		},
+		{
+			terms: ["memory", "persistent memory", "session memory", "project memory", "context memory", "remember"],
+			suggestion: "Use `/skill:memory-search` for context lookup, `/skill:memory-init` for setup, and `/skill:memory-sync` to sync.",
+		},
+		{
+			terms: ["scan repo", "repo scan", "codebase audit", "third-party", "dead weight", "embedded code", "cross stack"],
+			suggestion: "Use `/skill:repo-scan` for cross-stack source-code asset audit.",
 		},
 		{
 			terms: ["search web", "web research", "find on web", "online", "reference", "youtube", "video"],
