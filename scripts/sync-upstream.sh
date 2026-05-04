@@ -46,6 +46,28 @@ This script:
 EOF
 }
 
+function prune_extension_artifacts() {
+  local dst_path="$1"
+  local dir="$ROOT_DIR/$dst_path"
+
+  [[ -d "$dir" ]] || return 0
+
+  # Keep runtime lean: drop lockfiles, test/example artifacts, and demos not required
+  # for Pi execution in this centralized package.
+  rm -f "$dir/package-lock.json"
+
+  find "$dir" \
+    -type d \
+    \( -name "__tests__" -o -name "test" -o -name "tests" -o -name "examples" \) \
+    -prune -exec rm -rf {} +
+
+  find "$dir" \
+    -type f \
+    \( -name "*.test.ts" -o -name "*.test.tsx" -o -name "*.test.mjs" -o -name "*.test.mts" -o -name "*.mp4" -o -name "*.webm" \) \
+    -delete
+}
+
+
 COMMIT=0
 PUSH=0
 UPDATE=1
@@ -144,6 +166,9 @@ sync_from_repo() {
 for key in "${!SOURCES[@]}"; do
   IFS=',' read -r repo src dst <<< "$key"
   sync_from_repo "$repo" "$src" "$dst"
+  if [[ "$dst" == extensions/* ]]; then
+    prune_extension_artifacts "$dst"
+  fi
 done
 
 if [[ $COMMIT -eq 1 ]]; then
