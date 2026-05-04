@@ -62,9 +62,13 @@ You can still keep a local checkout (`/Users/pana/pi-tooling`) for editing and c
 - Skills:
   - `/skill:project-checklist`
   - `/skill:debug-live-boundary`
+  - `/skill:debug-red-first`
+  - `/skill:codebase-onboarding`
   - `/skill:design-md-library`
   - `/skill:pdf-reader`
   - `/skill:stop-slop`
+  - `/skill:tdd-workflow`
+  - `/skill:verification-loop`
   - `/skill:visual-explainer`
   - `/skill:web-access`
   - `/skill:pi-design-deck`
