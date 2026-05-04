@@ -9,6 +9,21 @@ It keeps:
 
 ## Contents
 
+### Imported from `amosblomqvist/pi-config`
+
+- Skills:
+  - `pdf-reader`
+  - `stop-slop`
+- Extensions:
+  - `youtube-search`
+  - `filechanges`
+  - `video-extract`
+  - `subagents`
+  - `ask-user-question.ts`
+  - `web-fetch`
+
+### Existing local resources
+
 - Skills:
   - `project-checklist`
   - `debug-live-boundary` (from `panamini/skill-lib`)
@@ -24,12 +39,16 @@ pi install /Users/pana/pi-tooling
 
 ## Use
 
-- Run skill:
+- Skills:
   - `/skill:project-checklist`
   - `/skill:debug-live-boundary`
   - `/skill:design-md-library`
-- Use extension command:
-  - `/hub-note Add API review notes`
+  - `/skill:pdf-reader`
+  - `/skill:stop-slop`
+- Extensions:
+  - Check command names in each extension’s source or README.
+  - Added direct extension files:
+    - `extensions/ask-user-question.ts`
 
 ## Notes
 
