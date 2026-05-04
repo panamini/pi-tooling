@@ -122,6 +122,18 @@ function detectExplicitIntent(prompt: string, cwd: string): Intent | null {
 			suggestion: "Use web-access (`/websearch`, `web_search`, `fetch_content`) for web lookup and content extraction.",
 		},
 		{
+			terms: [
+				"find a skill",
+				"find skill",
+				"is there a skill",
+				"install a skill",
+				"which skill",
+				"discover a skill",
+				"discover skill",
+			],
+			suggestion: "Use `/skill:find-skills` to discover installable capabilities.",
+		},
+		{
 			terms: ["delegate", "ask opinion", "second opinion", "parallel review", "who should", "multi-step"],
 			suggestion: "Use subagent flow (scout → planner → worker → reviewer) for multi-step work.",
 		},
