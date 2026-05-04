@@ -9,8 +9,12 @@ It keeps:
 
 ## Contents
 
-- Skill: `project-checklist`
-- Extension: `central-hub` (`/hub-note` command)
+- Skills:
+  - `project-checklist`
+  - `debug-live-boundary` (from `panamini/skill-lib`)
+  - `design-md-library` (from `panamini/skill-lib`)
+- Extension:
+  - `central-hub` (`/hub-note` command)
 
 ## Install (global)
 
@@ -22,6 +26,8 @@ pi install /Users/pana/pi-tooling
 
 - Run skill:
   - `/skill:project-checklist`
+  - `/skill:debug-live-boundary`
+  - `/skill:design-md-library`
 - Use extension command:
   - `/hub-note Add API review notes`
 

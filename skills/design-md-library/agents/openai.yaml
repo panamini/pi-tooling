@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design MD Library"
+  short_description: "Brand UI reference packs for design direction"
+  default_prompt: "Use $design-md-library to build UI inspired by one of the bundled brand reference packs."
