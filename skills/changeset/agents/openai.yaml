@@ -1,0 +1,4 @@
+interface:
+  display_name: "Changeset"
+  short_description: "Control scoped repository changes"
+  default_prompt: "Use $changeset to handle this repository change with safe Git scope and evidence-backed verification."
