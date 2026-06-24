@@ -1,60 +1,53 @@
 # Change Contract Reference
 
-Use this reference for `PLAN`, before `IMPLEMENT`, and whenever scope or acceptance criteria change.
+Use for `PLAN`, before `IMPLEMENT`, and whenever scope, risk, or acceptance criteria change.
 
 ## Contents
 
-1. Contract principles
-2. Risk and authorization
-3. Canonical template
-4. Baseline capture
-5. Anti-stale decision
-6. Contract amendments
-7. Status rules
+- 1. Contract principles
+- 2. Risk and authorization
+- 3. Canonical template
+- 4. Compact same-run contract
+- 5. Baseline capture
+- 6. Anti-stale decision
+- 7. Contract amendments
+- 8. Status rules
 
 ## 1. Contract principles
 
-A Change Contract is a reviewable agreement about one atomic outcome. It is not a line-by-line prediction of the final patch.
+A Change Contract is a reviewable agreement for one atomic outcome. It fixes observable behavior, invariants, scope, required evidence, and decisions needing approval. It is not a brittle line-by-line prediction of the final patch.
 
-A strong contract fixes:
+Allow bounded discretion for naming, local code shape, or equivalent test mechanics. Over-specifying exact lines makes a contract stale too easily; under-specifying behavior makes it unverifiable.
 
-- the desired observable outcome;
-- invariants and non-goals;
-- allowed and forbidden scope;
-- required evidence;
-- decisions that require human approval.
-
-It may leave bounded discretion for naming, local code shape, or equivalent test mechanics. Over-specifying exact lines makes a plan fragile; under-specifying behavior makes it unverifiable.
-
-Do not write a contract from filenames alone. Read the actual active path and enough context to know why each file is in scope.
+Do not write a contract from filenames alone. Read the active path and enough context to justify each in-scope file.
 
 ## 2. Risk and authorization
 
-Classify the highest applicable tier:
+Classify the highest applicable tier.
 
 ### `LOW`
 
-Examples: isolated docs, comments, test-only maintenance, a local non-runtime cleanup with no public contract change.
+Examples: isolated docs/comments, test-only maintenance, or local non-runtime cleanup without public contract change.
 
-Same-run implementation is allowed after a clear direct implementation request.
+A clear direct implementation request may authorize same-run implementation.
 
 ### `MEDIUM`
 
-Examples: application behavior, shared library code, configuration, dependency/lockfile updates, public UI behavior, non-destructive schema additions.
+Examples: application behavior, shared library code, configuration, dependencies/lockfiles, public UI behavior, or non-destructive schema additions.
 
-Same-run implementation is allowed only when the behavior and acceptance criteria are unambiguous and the change is reversible. Otherwise require approval.
+Same-run implementation is allowed only when behavior and acceptance criteria are unambiguous and reversible. Otherwise require exact approval.
 
 ### `HIGH`
 
-Examples: authentication or authorization, secrets, trust boundaries, payments, destructive or irreversible data migration, production infrastructure/deployment, public API compatibility breaks, cryptography, tenant isolation, privacy-sensitive data, broad concurrency or availability risk.
+Examples: authentication/authorization, secrets, trust boundaries, payments, destructive or irreversible data migration, production infrastructure/deployment, public API breaks, cryptography, tenant isolation, privacy-sensitive data, or broad concurrency/availability risk.
 
-Require an exact contract approval before editing. Require stronger evidence and independent review. Never execute production mutations merely because implementation was authorized.
+Require exact contract approval before editing and stronger evidence. Require a context-separated review before `MERGE_READY`, and earlier only when repository policy, domain policy, the user, or the contract explicitly requires it; require human review or approval wherever policy demands it. A fresh agent is not a human approval. Implementation authorization never authorizes a production mutation.
 
-Raise the tier when blast radius, irreversibility, uncertainty, or weak testability warrants it.
+Raise risk for high blast radius, irreversibility, uncertainty, weak observability, or weak testability even when the patch is small.
 
 ## 3. Canonical template
 
-Use this shape. Omit irrelevant subsections, but never omit outcome, scope, baseline, acceptance evidence, risk, and status.
+Omit irrelevant subsections, but never omit outcome, scope, baseline, acceptance evidence, risk, authorization, and status.
 
 ```markdown
 # CHANGE CONTRACT
@@ -63,24 +56,26 @@ Use this shape. Omit irrelevant subsections, but never omit outcome, scope, base
 - Version: 1
 - Operation: PLAN | IMPLEMENT
 - Authorization basis: plan-only | direct implementation request | approved version
+- Authorization evidence: exact user instruction or approval reference
 - Risk: LOW | MEDIUM | HIGH
 - Status: READY_FOR_APPROVAL | AUTHORIZED_TO_IMPLEMENT | NEEDS_DECISION | BLOCKED
 
 ## 1. ATOMIC OUTCOME
 
-One observable result. Include the target user/system behavior and why it matters.
+One observable result, target behavior, and why it matters.
 
 ### Non-goals
 - ...
 
 ## 2. SOURCES OF TRUTH
 
-- User request / issue / specification:
+- Current user request:
+- Issue/specification:
 - Repository instructions:
-- Existing tests or public contract:
+- Existing tests/public contract:
 - Conflicts or uncertainty:
 
-## 3. INVARIANTS AND ASSUMPTIONS
+## 3. INVARIANTS, ASSUMPTIONS, DECISIONS
 
 ### Must remain true
 - ...
@@ -97,19 +92,19 @@ One observable result. Include the target user/system behavior and why it matter
 
 - Repository root:
 - Git/non-Git workspace:
-- Current branch:
-- HEAD:
-- Likely base ref:
+- Branch state: <name> | DETACHED | UNBORN
+- HEAD: <sha> | UNBORN
+- Candidate base ref(s): observed | inferred | unverified, with evidence
 - Worktree status summary:
-- Applicable instruction files read:
-- Target/context files read:
-- File fingerprints:
+- Applicable instruction files read/fingerprinted:
+- Target/context files read/fingerprinted:
 - Stable anchors/symbols:
 - Existing in-scope diff captured:
+- Worktree fingerprint: unavailable | worktree/index/state SHA-256
 
 ## 5. CURRENT STATE OBSERVED
 
-Describe only verified behavior and code paths. Use symbols and semantic anchors; line numbers are secondary hints.
+Verified behavior and active code paths only. Use symbols and semantic anchors; line numbers are secondary hints.
 
 ## 6. SCOPE
 
@@ -122,6 +117,11 @@ Describe only verified behavior and code paths. Use symbols and semantic anchors
 | Path or pattern | Allowed only when |
 | --- | --- |
 | ... | ... |
+
+### Explicitly included pre-existing changes
+| Path/hunk | Authorization/evidence |
+| --- | --- |
+| none | ... |
 
 ### Forbidden scope
 - ...
@@ -142,7 +142,7 @@ Describe only verified behavior and code paths. Use symbols and semantic anchors
 
 ## 8. ACCEPTANCE AND EVIDENCE MATRIX
 
-| ID | Binary criterion | Evidence type | Command or inspection | Expected result | Required |
+| ID | Binary criterion | Evidence class | Command/inspection | Expected | Required |
 | --- | --- | --- | --- | --- | --- |
 | AC-1 | ... | structural/static/behavioral/negative/manual | ... | ... | yes/no |
 
@@ -152,15 +152,15 @@ Describe only verified behavior and code paths. Use symbols and semantic anchors
   - Trigger:
   - Detection:
   - Mitigation:
-- Known test gap or environment limit:
+- Known environment or test gap:
 
 ## 10. RECOVERY / ROLLBACK
 
-Describe a non-destructive recovery strategy. Do not prescribe commands that may erase pre-existing user work. Prefer a small reversible commit, an inverse patch limited to agent-owned hunks, feature disablement, or `git revert` after explicit authorization.
+A non-destructive recovery strategy. Do not prescribe commands that may erase pre-existing work. Prefer inverse patches limited to authorized session hunks, a small revert commit after authorization, documented feature disablement, or a tested migration rollback.
 
 ## 11. BRANCH AND PR FRAMING
 
-- Existing branch/worktree to use or proposed name:
+- Existing branch/worktree or proposed name:
 - Base branch: observed | inferred | unverified
 - Proposed PR title:
 - PR summary:
@@ -173,42 +173,111 @@ Describe a non-destructive recovery strategy. Do not prescribe commands that may
 - Smallest unresolved decision: none | ...
 ```
 
-## 4. Baseline capture
+## 4. Compact same-run contract
 
-Use repository-prescribed wrappers when present and available. Otherwise use native commands. Typical read-only Git evidence is:
+Use this only for a clear direct implementation request when all of the following hold:
+
+- risk is `LOW` or reversible `MEDIUM`;
+- outcome and acceptance criteria are unambiguous;
+- no product, design, data, security, or compatibility decision remains;
+- current in-scope work is clean or exactly captured and authorized;
+- the work can be completed and verified in the current session.
+
+Record it before editing even when it is not expanded into a long user-facing plan:
+
+```markdown
+# COMPACT CHANGE CONTRACT
+
+- ID / Version:
+- Authorization evidence:
+- Risk: LOW | MEDIUM
+- Status: AUTHORIZED_TO_IMPLEMENT
+- Atomic outcome:
+- Non-goals:
+- Sources of truth / invariants:
+- Baseline: repository, branch/HEAD, status, applicable instructions, target fingerprints, stable anchors, included existing diff
+- Scope: allowed | conditional triggers | forbidden | explicitly included pre-existing hunks
+- Patch intent by stable anchor:
+- Acceptance/evidence matrix: criterion | evidence | expected | required
+- Recovery:
+```
+
+If any qualifying condition stops being true, stop and issue the smallest canonical contract version or amendment. Do not stretch the compact form to hide risk or ambiguity.
+
+## 5. Baseline capture
+
+Use repository-prescribed wrappers only when present, required, and available. Otherwise use native commands.
+
+Typical read-only Git evidence:
 
 ```bash
 git rev-parse --show-toplevel
-git branch --show-current
-git rev-parse HEAD
-git status --porcelain=v1 -uall
-git symbolic-ref --quiet --short refs/remotes/origin/HEAD
-git diff --name-only
-git diff --cached --name-only
+git symbolic-ref --quiet --short HEAD
+git rev-parse --verify HEAD
+git -c core.fsmonitor=false status --porcelain=v1 -uall
+git --no-pager diff --no-ext-diff --no-textconv --name-status
+git --no-pager diff --no-ext-diff --no-textconv --cached --name-status
 git ls-files --others --exclude-standard
+git for-each-ref --format='%(refname:short) %(symref:short)' 'refs/remotes/*/HEAD'
 ```
 
-For every target and context file, record a stable semantic anchor and, when practical, a worktree content fingerprint:
+Interpret failures rather than hiding them:
+
+- empty/failed symbolic-ref with valid `HEAD` → `DETACHED`;
+- failed `git rev-parse --verify HEAD` in a Git worktree → `UNBORN`;
+- no remote HEAD ref → base remains inferred or unverified, not assumed to be `origin/main`.
+
+For target files and material context files, record a stable semantic anchor and, when practical, a worktree content fingerprint:
 
 ```bash
-git hash-object path/to/file
-git diff --no-ext-diff -- path/to/file
-git diff --cached --no-ext-diff -- path/to/file
+git hash-object -- path/to/file
+git --no-pager diff --no-ext-diff --no-textconv -- path/to/file
+git --no-pager diff --no-ext-diff --no-textconv --cached -- path/to/file
 ```
 
-For a missing file, record `ABSENT`. For a new untracked file, record its content hash and untracked status.
-
-A line number without a function, class, command, route, test, key, or unique text anchor is not a durable baseline.
+For a missing file, record `ABSENT`. For an untracked file, record its content hash and untracked status. A line number without a function, class, command, route, test, key, or unique text anchor is not durable.
 
 Capture applicable instruction files too. A changed instruction can invalidate the process even when target code is unchanged.
 
-## 5. Anti-stale decision
+### Base-ref evidence order
 
-Immediately before editing, compare the current state with the contract.
+Do not assume `main`, `master`, `origin`, or any hosting provider.
+
+Prefer, in order:
+
+1. base metadata from the existing PR/MR;
+2. explicit repository instructions or task/issue metadata;
+3. a configured repository default remote HEAD observed locally;
+4. a clearly documented project convention;
+5. an inferred candidate, labeled `inferred`;
+6. `unverified` when evidence is insufficient.
+
+A feature branch's upstream is not automatically its PR base.
+
+### Optional stable-state worktree fingerprint
+
+When reproducible uncommitted identity matters and Python 3.10+ is available, resolve the directory containing this skill's `SKILL.md` and run the bundled tool by absolute path. Do not look for it in the target repository:
+
+```bash
+python3 /absolute/path/to/changeset/scripts/worktree-fingerprint.py --repo /absolute/path/to/repository
+```
+
+It is read-only by design and reports:
+
+- `worktree_sha256`: baseline `HEAD` plus Git-reported tracked changes and non-ignored untracked filesystem state;
+- `index_sha256`: baseline `HEAD` plus index entries for changed paths;
+- `state_sha256`: status, index, and worktree state together for the Git-reported change set;
+- `complete`: whether encountered objects were supported, the observed state remained stable, and no `assume-unchanged`/`skip-worktree` index flag could hide a worktree difference.
+
+Use a commit SHA when possible. For a high-confidence uncommitted comparison, run the helper twice without intervening actions and require the same complete `state_sha256`. A complete fingerprint identifies the observed Git change state; it is not a full filesystem snapshot, excludes ignored paths and external environment, does not transfer file contents, and does not prove reviewer independence. The helper marks the result incomplete when Git index visibility flags could conceal changes. Its JSON manifest includes path names, which may themselves be sensitive. Treat `complete=false` or differing repeated digests as a limitation/blocker according to the evidence requirement. Never export manifests, untracked files, or patches without explicit authorization; they may reveal sensitive information.
+
+## 6. Anti-stale decision
+
+Immediately before editing, compare current state with the contract.
 
 ### Proceed
 
-Proceed when all required anchors still resolve, observed files and instructions match their captured content, and any Git drift is unrelated to the contract after inspection.
+Proceed when required anchors still resolve, relevant observed files/instructions match their baseline, and any Git drift is unrelated after inspection.
 
 Record unrelated drift as `DRIFT_REVALIDATED`; do not ignore it silently.
 
@@ -216,42 +285,43 @@ Record unrelated drift as `DRIFT_REVALIDATED`; do not ignore it silently.
 
 Stop when any of these is true:
 
-- an in-scope or context file changed after the baseline without being part of the approved baseline;
+- an in-scope or relevant context file changed after baseline outside the captured/authorized change set;
 - a required anchor disappeared, became ambiguous, or changed meaning;
 - repository instructions or test/build commands changed materially;
-- the requirement, public contract, or accepted behavior changed;
-- a new file is required outside allowed or conditional scope;
-- the approved contract version is not the latest version;
-- current user work in an in-scope file cannot be separated safely from the intended patch.
+- requirement, public contract, or accepted behavior changed;
+- a required file falls outside allowed/triggered conditional scope;
+- the approved contract is not the latest version;
+- current work in an in-scope file cannot be separated safely;
+- exact authorization evidence is missing for a required high-risk decision.
 
-A changed `HEAD` by itself is a revalidation trigger, not an automatic failure. Inspect:
+A changed `HEAD` alone is a revalidation trigger, not an automatic failure. Inspect endpoint drift without range ambiguity:
 
 ```bash
-git diff --name-only <baseline-head>..HEAD
+git --no-pager diff --no-ext-diff --no-textconv --name-only <baseline-head> HEAD
 ```
 
-If changes touch observed files, dependencies, tests, generated-source rules, or instructions relevant to the outcome, treat the contract as stale unless a new version is approved.
+If drift touches relevant code, dependencies, tests, generated-source rules, or instructions, issue a new contract version unless the contract explicitly left that change to implementation discretion.
 
-## 6. Contract amendments
+## 7. Contract amendments
 
-Increment the version when changing any of these:
+Increment the version when changing:
 
 - atomic outcome or externally visible behavior;
-- allowed, conditional, or forbidden scope;
-- invariant or public compatibility expectation;
+- allowed, conditional, forbidden, or explicitly included pre-existing scope;
+- invariant or compatibility expectation;
 - risk tier;
 - required acceptance criterion or evidence class;
-- a human-approved design decision.
+- a human-approved design/data decision.
 
-Do not increment for a mechanical choice already listed under implementation discretion, a corrected line number with the same anchor, or an unrelated revalidated `HEAD` drift.
+Do not increment for a mechanical choice already delegated, a corrected line number with the same anchor, or unrelated revalidated `HEAD` drift.
 
-When an implementation uncovers a new necessary change, stop, explain the discovery, and issue the smallest amended contract. Do not smuggle it into the current patch.
+When implementation reveals a new necessary change, stop and issue the smallest amendment. Do not smuggle it into the current patch.
 
-## 7. Status rules
+## 8. Status rules
 
-- `READY_FOR_APPROVAL`: Contract is complete and testable, but the request did not authorize implementation or policy requires approval.
-- `AUTHORIZED_TO_IMPLEMENT`: The exact version is authorized by a direct implementation request or explicit approval, and the risk gate allows execution.
-- `NEEDS_DECISION`: A product, behavior, compatibility, data, or risk decision cannot be inferred safely.
-- `BLOCKED`: Required repository access, artifact, tool, or safe workspace is unavailable.
+- `READY_FOR_APPROVAL`: complete/testable contract, but implementation is not authorized or policy requires exact approval.
+- `AUTHORIZED_TO_IMPLEMENT`: exact version authorized by a direct request or explicit approval, and risk gate permits execution.
+- `NEEDS_DECISION`: a product, behavior, compatibility, data, or risk decision cannot be inferred safely.
+- `BLOCKED`: required access, artifact, tool, safe workspace, or authorization evidence is unavailable.
 
-Never use `AUTHORIZED_TO_IMPLEMENT` merely because the agent believes its own plan is good.
+Never use `AUTHORIZED_TO_IMPLEMENT` because the agent considers its own plan good.
