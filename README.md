@@ -53,6 +53,7 @@ Memory skills/tools are intentionally provided by `git:github.com/VandeeFeng/pi-
   - `personality-skins` (`/skin` behavior profiles)
   - `progressive-disclosure` (UX guidance for layered workflows)
   - `changeset` (safe repository change contracts, implementation, verification, review, and PR gates)
+  - `review-changeset` (local read-only high-signal PR/diff/worktree review)
 - Extensions:
   - `central-hub` (`/hub-note` command)
   - `auto-workflow-router` (plain-language routing + skill hinting)
@@ -83,6 +84,7 @@ You can still keep a local checkout (`/Users/pana/pi-tooling`) for editing and c
   - `/skill:tdd-workflow`
   - `/skill:verification-loop`
   - `/skill:changeset`
+  - `/skill:review-changeset`
   - `/skill:blueprint`
   - `/skill:repo-scan`
   - `/skill:security-review`
