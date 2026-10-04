@@ -52,6 +52,7 @@ Memory skills/tools are intentionally provided by `git:github.com/VandeeFeng/pi-
   - `auto-nudge` (`/nudge` workflow hints)
   - `personality-skins` (`/skin` behavior profiles)
   - `progressive-disclosure` (UX guidance for layered workflows)
+  - `harmonic-composition` (Norma’s proportional layout and verification workflow; PolyForm Noncommercial)
   - `changeset` (safe repository change contracts, implementation, verification, review, and PR gates)
   - `review-changeset` (local read-only high-signal PR/diff/worktree review)
 - Extensions:
@@ -94,6 +95,7 @@ You can still keep a local checkout (`/Users/pana/pi-tooling`) for editing and c
   - `/skill:auto-nudge`
   - `/skill:personality-skins`
   - `/skill:progressive-disclosure`
+  - `/skill:harmonic-composition`
   - `/skill:visual-explainer`
   - `/skill:web-access`
   - `/skill:pi-design-deck`
